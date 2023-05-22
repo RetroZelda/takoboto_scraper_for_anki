@@ -3,3 +3,5 @@ https://github.com/ankitects/anki/releases
 https://foosoft.net/projects/anki-connect/
 
 fill out ./data/verbs_to_scrape.csv with all the words you want.  The ID it looks for is found in the takoboto url for a word after "w=". https://takoboto.jp/?w=1001370 
+
+Then run ./scrape.sh
