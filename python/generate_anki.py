@@ -89,6 +89,7 @@ ankiconnect_data = convert_to_ankiconnect_json(json_file)
 # create the decks
 deck_set = set(ankiconnect_data['decks'])
 total_decks = len(deck_set)
+added_decks = 0
 for index, deck in enumerate(deck_set):
     payload = {
         "action": "createDeck",
@@ -99,10 +100,14 @@ for index, deck in enumerate(deck_set):
     }
     response = requests.post("http://localhost:8765", data=json.dumps(payload))
     result = response.json()
+    if result['error'] is None:
+        added_decks = added_decks + 1
     print(f"\rAdding Decks: {(100 * (index + 1) / total_decks):.0f}%", end="")
 print()
+
 # add the cards
 total_cards = len(ankiconnect_data['cards'])
+added_cards = 0
 for index, card in enumerate(ankiconnect_data['cards']):
     payload = {
         "action": "addNote",
@@ -113,6 +118,12 @@ for index, card in enumerate(ankiconnect_data['cards']):
     }
     response = requests.post("http://localhost:8765", data=json.dumps(payload))
     result = response.json()
+    if result['error'] is None:
+        added_cards = added_cards + 1
     print(f"\rAdding Cards: {(100 * (index + 1) / total_cards):.0f}%", end="")
-print("\nDone.")
+
+print()
+print(f"Imported {added_decks} new decks.")
+print(f"Imported {added_cards} new cards.")
+print("Done.")
 
