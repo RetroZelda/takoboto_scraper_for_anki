@@ -17,17 +17,19 @@ def convert_to_ankiconnect_json(json_file):
     for item in data:
         word_id = item['id']
         dict_deck = verb_deck + "::00) Dictionary Forms"
+        meaning_header = "Dictionary Form<br>"
 
         # if there arent any forms(e.g. not a noun) then push to our word deck
         if item['forms'] is None or not item['forms']:
             dict_deck = word_deck
+            meaning_header = ""
         card = {
             "deckName": dict_deck,
             "modelName": "jp.takoboto",
             "fields": {
                 "Japanese": item['kanji'],
                 "Reading": item['hiragana'],
-                "Meaning": "Dictionary" + "<br>".join(f"{i+1}. {definition['definition_text']}" for i, definition in enumerate(item['definitions'][:4])),
+                "Meaning": meaning_header + "<br>".join(f"{i+1}. {definition['definition_text']}" for i, definition in enumerate(item['definitions'][:4])),
                 "Note": item['definitions'][0]['conjugation_type'],
                 "Sentence": "",
                 "SentenceMeaning": "",
