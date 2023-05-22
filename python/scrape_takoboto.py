@@ -13,6 +13,14 @@ def load_csv_into_list(filename):
             data_list.append(dict(row))
     return data_list
 
+
+def save_list_into_csv(filename, data_list):
+    field_names = data_list[0].keys()
+    with open(filename, 'w', newline='') as file:
+        writer = csv.DictWriter(file, fieldnames=field_names)
+        writer.writeheader()
+        writer.writerows(data_list)
+
 parser = argparse.ArgumentParser(description='Parse a CSV file to scrape Takoboto IDs and save the results to JSON.')
 parser.add_argument('file_in', help='Path to the CSV file with Takoboto IDs')
 parser.add_argument('file_out', help='Path to the JSON file that will hold our scraped data')
@@ -31,8 +39,11 @@ url_format = "https://takoboto.jp/?w={}"
 # scrape the page for each line
 scraped_data = []
 for row in data_list:
+    if row['id_in'] is None or row['id_in'] == '':
+        continue
+    
     word_data = {}
-    word_data['id'] = row['id']
+    word_data['id'] = row['id_in']
     url = url_format.format(word_data['id'])
 
     print("Loading " + word_data['id'] + " from " + url)
@@ -155,6 +166,10 @@ for row in data_list:
 
     scraped_data.append(word_data)
 
+    row['id_done'] = row['id_in']
+    row['id_in'] = None
+
+save_list_into_csv(args.file_in, data_list)
 with open(args.file_out, 'w') as file:
     json.dump(scraped_data, file, indent=4)
 
