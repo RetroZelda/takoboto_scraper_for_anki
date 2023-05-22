@@ -103,7 +103,7 @@ for index, deck in enumerate(deck_set):
     if result['error'] is None:
         added_decks = added_decks + 1
     print(f"\rAdding Decks: {(100 * (index + 1) / total_decks):.0f}%", end="")
-print()
+print(f"\rImported {added_decks} decks.")
 
 # add the cards
 total_cards = len(ankiconnect_data['cards'])
@@ -121,9 +121,5 @@ for index, card in enumerate(ankiconnect_data['cards']):
     if result['error'] is None:
         added_cards = added_cards + 1
     print(f"\rAdding Cards: {(100 * (index + 1) / total_cards):.0f}%", end="")
-
-print()
-print(f"Imported {added_decks} new decks.")
-print(f"Imported {added_cards} new cards.")
-print("Done.")
+print(f"\rImported {added_cards} cards.")
 

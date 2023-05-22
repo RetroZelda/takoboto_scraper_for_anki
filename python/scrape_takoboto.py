@@ -31,6 +31,8 @@ args = parser.parse_args()
 filename = args.file_in
 data_list = load_csv_into_list(filename)
 
+print(f"Scraping {len(data_list)} items from {filename}")
+
 # use these to execute javascript to get all the data
 driver = webdriver.Chrome()
 js_function = "showAllForms();"
@@ -172,6 +174,8 @@ for row in data_list:
 save_list_into_csv(args.file_in, data_list)
 with open(args.file_out, 'w') as file:
     json.dump(scraped_data, file, indent=4)
+
+print(f"Scraped {len(scraped_data)} items into {args.file_out}")
 
 # with open(args.file_out, 'w', newline='') as file:
 #     writer = csv.DictWriter(file, fieldnames=data_list[0].keys())

@@ -7,7 +7,7 @@ python3 -m venv "$venv_name"
 source "$venv_name/bin/activate"
 
 # Install dependencies
-pip install -r requirements.txt
+pip install -r requirements.txt >/dev/null 2>&1
 
 mkdir .tmp
 
@@ -18,9 +18,7 @@ if [ -f "./.tmp/verbs.json" ]; then
 
     # Check if the anki is running
     program_name="anki"
-    if pgrep -x "$program_name" >/dev/null; then
-        echo "$program_name is already running."
-    else
+    if ! pgrep -x "$program_name" >/dev/null; then
         # Start the program
         echo "Starting $program_name..."
         anki >/dev/null 2>&1 &
@@ -46,3 +44,4 @@ rm -d .tmp
 
 # Deactivate the virtual environment
 deactivate
+echo "Done."
