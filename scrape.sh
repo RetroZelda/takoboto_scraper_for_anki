@@ -12,7 +12,7 @@ pip install -r requirements.txt >/dev/null 2>&1
 mkdir .tmp
 
 # scrape and upload to Anki(NOTE: Requires Anki Connect to be running)
-python3 ./python/scrape_takoboto.py ./data/verbs_to_scrape.csv ./.tmp/verbs.json
+python3 ./python/scrape_takoboto.py ./data/words_to_scrape.csv ./.tmp/verbs.json
 
 if [ -f "./.tmp/verbs.json" ]; then
 
