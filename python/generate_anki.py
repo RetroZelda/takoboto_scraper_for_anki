@@ -3,7 +3,8 @@ import requests
 import argparse
 from pykakasi import kakasi
 
-deck_name = "Verb Conjugation"
+word_deck = "Japanese Words"
+verb_deck = "Verb Conjugation"
 def convert_to_ankiconnect_json(json_file):
     with open(json_file, 'r') as file:
         data = json.load(file)
@@ -15,7 +16,11 @@ def convert_to_ankiconnect_json(json_file):
 
     for item in data:
         word_id = item['id']
-        dict_deck = deck_name + "::00) Dictionary Forms"
+        dict_deck = verb_deck + "::00) Dictionary Forms"
+
+        # if there arent any forms(e.g. not a noun) then push to our word deck
+        if item['forms'] is None or not item['forms']:
+            dict_deck = word_deck
         card = {
             "deckName": dict_deck,
             "modelName": "jp.takoboto",
@@ -37,7 +42,7 @@ def convert_to_ankiconnect_json(json_file):
 
         # adda card for each form
         for index, form in enumerate(item['forms']):
-            form_deck = deck_name + "::" + str(index + 1).zfill(2) + ") " + form['form']
+            form_deck = verb_deck + "::" + str(index + 1).zfill(2) + ") " + form['form']
             
             def make_card(form_data, type):
                 converted_raw = kks.convert(form_data['informal'])
@@ -103,7 +108,7 @@ for index, deck in enumerate(deck_set):
     if result['error'] is None:
         added_decks = added_decks + 1
     print(f"\rAdding Decks: {(100 * (index + 1) / total_decks):.0f}%", end="")
-print(f"\rImported {added_decks} decks.")
+print(f"\rImported {added_decks} decks.             ")
 
 # add the cards
 total_cards = len(ankiconnect_data['cards'])
@@ -121,5 +126,5 @@ for index, card in enumerate(ankiconnect_data['cards']):
     if result['error'] is None:
         added_cards = added_cards + 1
     print(f"\rAdding Cards: {(100 * (index + 1) / total_cards):.0f}%", end="")
-print(f"\rImported {added_cards} cards.")
+print(f"\rImported {added_cards} cards.            ")
 
