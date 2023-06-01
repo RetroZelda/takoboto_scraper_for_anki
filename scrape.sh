@@ -45,7 +45,7 @@ else
     echo "No new data to import."
 fi
 
-rm -d .tmp
+rm -d -r -f .tmp
 
 # Deactivate the virtual environment
 deactivate
