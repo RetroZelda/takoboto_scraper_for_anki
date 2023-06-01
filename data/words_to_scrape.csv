@@ -1,32 +1,50 @@
-id_in,id_done,
-,1589060,
-,1577980,
-,1326980,
-,1578850,
-,1591110,
-,1473740,
-,1606560,
-,1562350,
-,1456360,
-,1169870,
-,1410590,
-,1360010,
-,1221270,
-,1259290,
-,1157170,
-,1547720,
-,1358280,
-,1296400,
-,1198180,
-,1223640,
-,1343950,
-,1174340,
-,1355120,
-,1012980,
-,1598550,
-,1312970,
-,1596830,
-,1357240,
-,1390930,
-,1206530,
-,1467640,
+id,imported,kanji,kana,hiragana,romaji,definitions
+1589060,Y, 行う , オコナウ , おこなう , okonau ,"to perform, to do, to conduct oneself, to carry out"
+1577980,Y, 居る , イル , いる , iru ,"to be (of animate objects), to exist"
+1326980,Y, 取る , トル , とる , toru ,"to take, to pick up, to grab, to catch"
+1578850,Y, 行く , イク , いく , iku ,"to go, to move (towards), to head (towards), to leave (for)"
+1591110,Y, 聞く , キク , きく , kiku ,to hear
+1473740,Y, 買う , カウ , かう , kau ,"to buy, to purchase"
+1606560,Y, 分かる , ワカル , わかる , wakaru ,"to understand, to comprehend, to grasp, to see, to get, to follow"
+1562350,Y, 話す , ハナス , はなす , hanasu ,"to talk, to speak, to converse, to chat"
+1456360,Y, 読む , ヨム , よむ , yomu ,to read
+1169870,Y, 飲む , ノム , のむ , nomu ,"to drink, to gulp, to swallow, to take (medicine)"
+1410590,Y, 待つ , マツ , まつ , matsu ,to wait
+1360010,Y, 寝る , ネル , ねる , neru ,to sleep (lying down)
+1221270,Y, 帰る , カエル , かえる , kaeru ,"to return, to come home, to go home, to go back"
+1259290,Y, 見る , ミル , みる , miru ,"to see, to look, to watch, to view, to observe"
+1157170,Y, 為る   rarely-used kanji form, スル   rarely-used kanji form, する   rarely-used kanji form, suru   rarely-used kanji form,"to do, to carry out, to perform"
+1547720,Y, 来る , クル , くる , kuru ,"to come (spatially or temporally), to approach, to arrive"
+1358280,Y, 食べる , タベル , たべる , taberu ,to eat
+1296400,Y, 有る , アル , ある , aru ,"to be, to exist, to live"
+1198180,Y, 会う , アウ , あう , au ,"to meet, to encounter, to see"
+1223640,Y, 起きる , オキル , おきる , okiru ,"to get up, to rise, to blaze up (fire)"
+1343950,Y, 書く , カク , かく , kaku ,"to write, to compose, to pen"
+1174340,Y, 泳ぐ , オヨグ , およぐ , oyogu ,to swim
+1355120,Y, 乗る , ノル , のる , noru ,"to get on (train, plane, bus, ship, etc.), to get in, to board, to take, to embark"
+1012980,Y, 遣る , ヤル , やる , yaru ,"to do, to undertake, to perform, to play (a game), to study"
+1598550,Y, 出かける , デカケル , でかける , dekakeru ,"to go out (e.g. on an excursion or outing), to leave, to depart, to start, to set out"
+1312970,Y, 飼う , カウ , かう , kau ,"to keep (a pet or other animal), to have, to own, to raise, to rear, to feed"
+1596830,Y, 炊く , タク , たく , taku ,"to cook (grains, e.g. rice)"
+1357240,Y, 拭く , フク , ふく , fuku ,"to wipe, to dry"
+1390930,Y, 洗う , アラウ , あらう , arau ,"to wash, to cleanse, to rinse"
+1206530,Y, 学ぶ , マナブ , まなぶ , manabu ,"to study (in depth), to learn, to take lessons in"
+1467640,Y, 猫 , ネコ , ねこ , neko ,"cat (esp. the domestic cat, Felis catus)"
+1372670,Y, 酔っ払う , ヨッハラウ , よっはらう , yotsuharau ,to get drunk
+1229840,Y, 泣く , ナク , なく , naku ,"to cry, to weep, to sob, to howl"
+1589350,Y, 思う , オモウ , おもう , omou ,"to think, to consider, to believe, to reckon"
+1281020,Y, 考える , カンガエル , かんがえる , kangaeru ,"to think (about, of), to think over, to ponder, to contemplate, to reflect (on), to meditate (on)"
+1351360,Y, 笑う , ワラウ , わらう , warau ,to laugh
+1407460,Y, 多い , オオイ , おおい , ooi ,"many, numerous, a lot"
+1602360,Y, 広がる , ヒロガル , ひろがる , hirogaru ,"to spread (out), to extend, to stretch, to reach to, to get around, to fill (e.g. a space)"
+1206530,Y, 学ぶ , マナブ , まなぶ , manabu ,"to study (in depth), to learn, to take lessons in"
+1445690,Y, 怒る , イカル , いかる , ikaru ,"to get angry, to get mad"
+1235910,Y, 叫ぶ , サケブ , さけぶ , sakebu ,"to shout, to cry, to scream, to shriek, to yell, to exclaim"
+1547720,Y, 来る , クル , くる , kuru ,"to come (spatially or temporally), to approach, to arrive"
+1408220,Y, 太る , フトル , ふとる , futoru ,"to put on weight, to gain weight, to grow fat, to get stout"
+1607260,Y, 履く , ハク , はく , haku ,"to put on (lower-body clothing, e.g. pants, skirt, footwear), to wear"
+1423000,Y, 着る , キル , きる , kiru ,"to wear (from the shoulders down), to put on"
+1416400,Y, 脱ぐ , ヌグ , ぬぐ , nugu ,"to take off (clothes, shoes, etc.), to undress"
+1229840,Y, 泣く , ナク , なく , naku ,"to cry, to weep, to sob, to howl"
+1581730,Y, 注ぐ , ソソグ , そそぐ , sosogu ,to pour (into)
+1465610,Y, 入れる , イレル , いれる , ireru ,"to put in, to let in, to take in, to bring in, to insert, to install (e.g. software), to set (a jewel, etc.), to ink in (e.g. tattoo)"

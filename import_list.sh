@@ -11,10 +11,14 @@ pip install -r requirements.txt >/dev/null 2>&1
 
 mkdir .tmp
 
-# scrape and upload to Anki(NOTE: Requires Anki Connect to be running)
-python3 ./python/scrape_takoboto.py ./data/words_to_scrape.csv ./.tmp/verbs.json
+# scrape the list
+src_url="https://takoboto.jp/lists/study/n5vocab/" 
+python3 ./python/scrape_takoboto_list.py "$src_url" ./.tmp/imported_from_list.csv
 
-if [ -f "./.tmp/verbs.json" ]; then
+if [ -f "./.tmp/imported_from_list.csv" ]; then
+
+    # scrape
+    python3 ./python/scrape_takoboto.py ./.tmp/imported_from_list.csv ./.tmp/words.json
 
     # Check if the anki is running
     program_name="anki"
@@ -31,16 +35,13 @@ if [ -f "./.tmp/verbs.json" ]; then
     if pgrep -x "$program_name" >/dev/null; then
         echo "$program_name connected successfully."
 
-        # generate the decks
-        python3 ./python/generate_anki.py ./.tmp/verbs.json
-
-        # sythesize it
-        python3 ./python/generate_voice.py .tmp "Verb Conjugation"
-
-        rm ./.tmp/verbs.json
+        python3 ./python/generate_anki.py ./.tmp/words.json
+        rm ./.tmp/words.json
     else
         echo "Failed to start $program_name."
     fi
+       
+    rm ./.tmp/imported_from_list.csv
 else
     echo "No new data to import."
 fi

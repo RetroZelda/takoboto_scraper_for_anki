@@ -41,11 +41,14 @@ url_format = "https://takoboto.jp/?w={}"
 # scrape the page for each line
 scraped_data = []
 for row in data_list:
-    if row['id_in'] is None or row['id_in'] == '':
+    if row['id'] is None or row['id'] == '':
         continue
+    if row['imported'] is not None and row['imported'] != '':
+        if row['imported'][0].upper() == "Y":
+            continue
     
     word_data = {}
-    word_data['id'] = row['id_in']
+    word_data['id'] = row['id']
     url = url_format.format(word_data['id'])
 
     print("Loading " + word_data['id'] + " from " + url)
@@ -87,6 +90,11 @@ for row in data_list:
     romaji = converted['hepburn']
     word_data['romaji'] = romaji
 
+    row['kanji'] = kanji
+    row['kana'] = kana
+    row['hiragana'] = hiragana
+    row['romaji'] = romaji
+
     # lets grab all translations
     definitions = []
     translations_element = soup.find('div', string="English")
@@ -107,6 +115,7 @@ for row in data_list:
                           'definition_text' : definition_text}
             definitions.append(definition)
     word_data['definitions'] = definitions
+    row['definitions'] = definitions[0]["definition_text"]
 
     # Find the conjugated block
     conjugated_text_element = soup.find('div', string="Conjugated forms")
@@ -148,15 +157,20 @@ for row in data_list:
                 "description": form_positive_description
             }
                 
-            form_negative = verb_form.contents[5]
-            negative_strings = list(form_negative.stripped_strings)
-            form_negative_informal = negative_strings[0]
-            if negative_strings[1].startswith(", "):
-                form_negative_formal = negative_strings[1].lstrip(", ")
-                form_negative_description = negative_strings[2] if len(negative_strings) > 2 else ""
-            else:
-                form_negative_formal = form_negative_informal
-                form_negative_description = negative_strings[1]
+            form_negative_informal = ""
+            form_negative_formal = ""
+            form_negative_description = ""
+
+            if len(verb_form.contents) > 5:
+                form_negative = verb_form.contents[5]
+                negative_strings = list(form_negative.stripped_strings)
+                form_negative_informal = negative_strings[0]
+                if negative_strings[1].startswith(", "):
+                    form_negative_formal = negative_strings[1].lstrip(", ")
+                    form_negative_description = negative_strings[2] if len(negative_strings) > 2 else ""
+                else:
+                    form_negative_formal = form_negative_informal
+                    form_negative_description = negative_strings[1]
 
             verb['negative'] = {
                 "informal": form_negative_informal,
@@ -168,8 +182,7 @@ for row in data_list:
 
     scraped_data.append(word_data)
 
-    row['id_done'] = row['id_in']
-    row['id_in'] = None
+    row['imported'] = "Y"
 
 save_list_into_csv(args.file_in, data_list)
 with open(args.file_out, 'w') as file:
