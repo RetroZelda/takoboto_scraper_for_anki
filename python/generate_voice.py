@@ -29,6 +29,8 @@ params = {
     }
 }
 
+print(f"Scanning deck {deck_name} to generate a sythesized file for the word.")
+
 # Send the request to AnkiConnect
 response = requests.post(url, json=params)
 data = response.json()
