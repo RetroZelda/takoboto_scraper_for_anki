@@ -5,3 +5,7 @@ https://foosoft.net/projects/anki-connect/
 fill out ./data/verbs_to_scrape.csv with all the words you want.  The ID it looks for is found in the takoboto url for a word after "w=". https://takoboto.jp/?w=1001370 
 
 Then run ./scrape.sh
+
+NOTE: ./scrape.sh will just scrape.  you can modify ./synthesize.sh to set your deck name to then generate a spoken voice for each card in the deck. 
+
+Synthesizing generally assumes you have the Takoboto deck type

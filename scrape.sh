@@ -35,7 +35,7 @@ if [ -f "./.tmp/verbs.json" ]; then
         python3 ./python/generate_anki.py ./.tmp/verbs.json
 
         # sythesize it
-        python3 ./python/generate_voice.py .tmp "Verb Conjugation"
+        #python3 ./python/generate_voice.py .tmp "Verb Conjugation"
 
         rm ./.tmp/verbs.json
     else
