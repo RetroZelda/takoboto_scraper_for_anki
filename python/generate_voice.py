@@ -29,7 +29,7 @@ params = {
     }
 }
 
-print(f"Scanning deck {deck_name} to generate a sythesized file for the word.")
+print(f"Scanning deck \"{deck_name}\" to generate a sythesized file for each word.")
 
 # Send the request to AnkiConnect
 response = requests.post(url, json=params)
@@ -79,6 +79,7 @@ if "result" in data:
             if len(matches) > 1:
                 # we have more than 1 so regenerate to fix it
                 data_fields[used_field]['value'] = re.sub(r'\[.*?\]', '', kanji)
+                no_sound_list.append(data)
 
     
     print(f"\n{len(no_sound_list)}/{len(note_ids)} notes dont have sound")
@@ -92,33 +93,44 @@ if "result" in data:
         kanji = ""
         used_field = ""
         if data_fields.get('kanjis'):
-            kanji = data_fields['kanjis']['value']
+            kanji = data_fields['Reading']['value']
             used_field = "kanjis"
         if data_fields.get('Japanese'):
-            kanji = data_fields['Japanese']['value']
+            kanji = data_fields['Reading']['value']
             used_field = "Japanese"
+
+            # HACK: fill empty readings with the japanese field.  usually from slang words in takoboto
+            if kanji is None or kanji == "" or kanji == '':
+                kanji = data_fields['Japanese']['value']
+                data_fields['Reading']['value'] = kanji
+                print(f"\nFixed empty 'Reading' field for \"{kanji}\"")
         
         if kanji == "" or used_field == "":
             continue
-        print(f"\rGenerating Sound: {(100 * (index + 1) / total_sounds_to_generate):.0f}% - {note_id} - {kanji}                                       ", end="")
+        print(f"Generating Sound: {(100 * (index + 1) / total_sounds_to_generate):.0f}% - {note_id} - {kanji}                                       ")
 
         # Create gTTS object and specify the language
         tts = gTTS(text=kanji, lang='ja', slow=False)
 
         # Save the speech as an audio file
         audio_file = f"{args.output_path}/{note_id}.wav"
-        #audio_file = f"/home/retrozelda/Development/projects/takoboto_scraper_for_anki/data/.tmp/{note_id}.wav"
         tts.save(audio_file)
 
         # grab the sound from disk
         sound_data = base64.b64encode(open(audio_file, "rb").read()).decode('utf-8')
-        sound_field = {"filename": f"{note_id}.wav", "data": sound_data, "fields":[used_field], "deleteExisting":True}
+        sound_field = {
+            "filename": f"{note_id}.wav", 
+            "data": sound_data, 
+            "fields": [used_field], 
+            "deleteExisting": True
+            }
 
         # create our note update
         updated_note = {
             "id" : note_id,
             "fields" : {},
-            "audio" : sound_field
+            "audio" : sound_field,
+            "tags" : []
         }
 
         # convert our existing fields over
@@ -128,6 +140,10 @@ if "result" in data:
         # clean the existing "used" field
         updated_note['fields'][used_field] = re.sub(r'\[.*?\]', '', updated_note['fields'][used_field])
         
+
+        # hack because anki api broke things:
+        updated_note['fields'][used_field] = updated_note['fields'][used_field] + f"[sound:{note_id}.wav]"
+
         # insert the sound in our deck
         payload = json.dumps({
         "action": "updateNote",
@@ -141,10 +157,9 @@ if "result" in data:
         if result['error'] is not None:
             print(f" ERROR: {result['error'] }")
 
-    print(f"\rGenerated {total_sounds_to_generate} sounds.                              ")
+    print(f"Generated {total_sounds_to_generate} sounds.                              ")
 
 else:
     print("An error occurred while fetching notes.")
     if "error" in data:
         print(data["error"])
-
