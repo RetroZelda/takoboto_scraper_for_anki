@@ -142,7 +142,7 @@ if "result" in data:
         
 
         # hack because anki api broke things:
-        updated_note['fields'][used_field] = updated_note['fields'][used_field] + f"[sound:{note_id}.wav]"
+        #updated_note['fields'][used_field] = updated_note['fields'][used_field] + f"[sound:{note_id}.wav]"
 
         # insert the sound in our deck
         payload = json.dumps({
